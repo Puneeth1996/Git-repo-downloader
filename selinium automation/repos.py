@@ -41,7 +41,7 @@ search_string = args[1]
 driver = webdriver.Chrome(chrome_options=options, executable_path='chromedriver.exe')
 
 
-directory = '.\\Completed\\{0}\\'.format( search_string.replace('\\', '|') )
+directory = '.\\Repos-Links\\{0}\\'.format( search_string.replace('\\', '|') )
 if not os.path.exists(directory):
     os.makedirs(directory)
 
@@ -71,8 +71,6 @@ def make_search():
 
 
 def grab_repos_name():
-    for div in driver.find_elements_by_xpath('//div[@class="f4 text-normal"]'):
-        print(div.text)
     return [ div.text.replace("\n","") for div in driver.find_elements_by_xpath('//div[@class="f4 text-normal"]') ]
 
 
@@ -84,18 +82,21 @@ try:
     flag = 1
     while flag:
         page_repos = grab_repos_name()
-        print("The Page Repos = ", page_repos)
+        # print("The Page Repos = ", page_repos)
         all_results.extend(page_repos)
         # as long as there is a next button present keep going 
         next_button = driver.find_element_by_xpath('//a[@class="next_page"]')
         if('disabled' not in next_button.get_attribute("class")):
-            print("\t\t\t Moving to next page . . . ")
+            # print("\t\t\t Moving to next page . . . ")
             time.sleep(random.randint(1, 3))
             driver.execute_script("arguments[0].click();", next_button)
             time.sleep(random.randint(1, 3))
         else:
             print("Last page")
             flag = 0
+    with open(directory + 'Repos-Links.txt', 'w') as f:
+        for item in all_results:
+            f.write("%s\n" % item)
 
     # driver.close()
     print("Script is completed.")
