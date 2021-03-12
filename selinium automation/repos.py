@@ -22,6 +22,9 @@ options = Options()
 options.add_argument('--log-level=3')
 
 
+# user_agent_string = "My_User_Agent_String" # please chagne the string to user agent
+# opts.add_argument("user-agent=%s" % ( user_agent_string ) ) # adding the user agent 
+
 args = sys.argv
 search_term = args[1]
 
@@ -47,14 +50,25 @@ if not os.path.exists(directory):
 #     wd.close()
 
 
-def enter_date():
-    pass
+
+search_string = str(input("Please enter the search term to download repos: ")).replace('\n', '')
+print(f"Gathering all the repos for the string = {search_string}.")
+
+
+
+
+
+
+def make_search():
+    # http://github.com/search?q=big+data&type=
+    driver.get(f"http://github.com/search?q={ search_string.replace(' ', '+') }type=")
+    print("The requested search url is loaded.")
 
 
 try:
     make_search()
     driver.close()
-    print("Script is completed")
+    print("Script is completed.")
 except Exception as e:
     driver.close()
     print(traceback.print_exc())
