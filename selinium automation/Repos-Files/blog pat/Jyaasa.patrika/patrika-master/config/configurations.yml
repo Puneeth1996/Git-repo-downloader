@@ -1,0 +1,5 @@
+trello:
+  key: <%= ENV['trello_key'] %>
+  secret: <%= ENV['trello_secret'] %>
+  token: <%= ENV['trello_token'] %>
+  list: <%= ENV['trello_list'] %>

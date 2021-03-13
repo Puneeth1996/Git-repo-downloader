@@ -1,0 +1,14 @@
+<p>hi {{email}},<p>
+<h1>This is {{month}} Jyaasa newsletter</h1>
+<h3>Here is what Jyaasa is looking into for this month . </h3>
+<ul>
+  {% for post in posts %}
+    <li>
+      <p>{{post[0]}}</p>
+      {% if post[1] != "" %} <p><a href={{post[1]}}>{{post[1]}}</a></p> {% endif %}
+      <p>{{post[2]}}</p>
+    </li>
+  {% endfor %}
+</ul>
+
+<h4> Thank you for being at jyaasa !</h4>

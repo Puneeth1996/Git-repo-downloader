@@ -1,0 +1,4 @@
+lib/*.swp
+*.swp
+.env
+/config/receipents.yml

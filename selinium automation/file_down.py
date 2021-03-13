@@ -54,16 +54,9 @@ options.add_argument('--disable-software-rasterizer')
 
 software_names = [SoftwareName.CHROME.value]
 operating_systems = [OperatingSystem.WINDOWS.value, OperatingSystem.LINUX.value]   
-
 user_agent_rotator = UserAgent(software_names=software_names, operating_systems=operating_systems, limit=100)
-
-# Get list of user agents.
-user_agents = user_agent_rotator.get_user_agents()
-# print(user_agents)
-
-# Get Random User Agent String.
-user_agent = user_agent_rotator.get_random_user_agent()
-# print(user_agent)
+user_agents = user_agent_rotator.get_user_agents() # Get list of user agents.
+user_agent = user_agent_rotator.get_random_user_agent() # Get Random User Agent String. 
 
 
 driver = webdriver.Chrome(chrome_options=options, executable_path=r'chromedriver.exe')
@@ -83,13 +76,11 @@ try:
         time.sleep(1)
         time_counter += 1
         if time_counter > time_to_wait:break
-    # Extract the zip folder 
-    # Create a ZipFile Object and load sample.zip in it
     with ZipFile(path_zip+repo.split('/')[1]+"-master.zip", 'r') as zipObj:
-        # Extract all the contents of zip file in current directory
-        zipObj.extractall()
-    print(f"done file : {path_zip+repo.split('/')[1]+"-master"}")
+        zipObj.extractall(path_zip)
+    print(f"done file : {path_zip}")
     driver.close()
+    os.remove(path_zip+repo.split('/')[1]+"-master.zip") # path_zip+repo.split('/')[1]+"-master.zip" shouold be deleted
 except Exception as e:
     driver.close()
     print(traceback.print_exc())
