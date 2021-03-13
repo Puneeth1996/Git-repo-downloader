@@ -29,9 +29,11 @@ for i in range(0, len(proxies)):
         options = webdriver.ChromeOptions()
         options.add_argument('--proxy-server={}'.format(proxies[i]))
         driver = webdriver.Chrome(options=options, executable_path=r'C:\WebDrivers\chromedriver.exe')
+        driver.get("http://github.com/")
         driver.get("https://www.whatismyip.com/proxy-check/?iref=home")
         if "Proxy Type" in WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "p.card-text"))):
             break
+        driver.get("http://github.com/")
     except Exception:
         driver.quit()
 print("Proxy Invoked")
