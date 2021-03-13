@@ -116,7 +116,7 @@ def exec_commands(cmds):
 
 commands = []
 for rep in content:
-	commands.append(['python','file_down.py','`%s`' %rep ])
+	commands.append(['python','file_down.py','"%s"' %rep, '"%s"' %search_string ])
 exec_commands(commands)
 
 

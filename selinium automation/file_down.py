@@ -21,25 +21,34 @@ import zipfile
 import random
 from subprocess import Popen, list2cmdline
 import shutil
-
-
+from zipfile import ZipFile
 
 
 args = sys.argv
-# print(args)
-search_string = args[1].replace('`','')
-print( "Download : {0} | File {1}" .format(search_string, 'https://github.com/'search_string+'/archive/master.zip') )
-
+print(args)
+repo = args[1].replace('`','')
+search_string = args[2].replace('`','')
+print( "Download : {0} | File {1}" .format(search_string, 'https://github.com/'+repo+'/archive/master.zip') )
+directory_zip = '.\\Repos-Files\\{0}\\{1}'.format(search_string, repo.replace('/','.'))
+path_zip = os.getcwd() + directory_zip[1:] + '\\'
+print(f"Path :  {path_zip} ")
 options = webdriver.ChromeOptions()
 options.add_argument('--log-level=3')
 options.add_argument("start-maximized")
-
-# https://stackoverflow.com/questions/54035436/headless-is-not-an-option-in-chrome-webdriver-for-selenium-python
-
-options.add_argument('--headless')
+options.add_argument("--headless")
+options.add_argument("--window-size=1920x1080")
+options.add_argument("--disable-notifications")
 options.add_argument('--no-sandbox')
+options.add_argument('--verbose')
+options.add_experimental_option("prefs", {
+        "download.default_directory": f"{path_zip}",
+        "download.prompt_for_download": False,
+        "download.directory_upgrade": True,
+        "safebrowsing_for_trusted_sources_enabled": False,
+        "safebrowsing.enabled": False
+})
 options.add_argument('--disable-gpu')
-
+options.add_argument('--disable-software-rasterizer')
 # you can also import SoftwareEngine, HardwareType, SoftwareType, Popularity from random_user_agent.params
 # you can also set number of user agents required by providing `limit` as parameter
 
@@ -56,19 +65,32 @@ user_agents = user_agent_rotator.get_user_agents()
 user_agent = user_agent_rotator.get_random_user_agent()
 # print(user_agent)
 
+
+driver = webdriver.Chrome(chrome_options=options, executable_path=r'chromedriver.exe')
+
+
 # https://stackoverflow.com/questions/53161173/how-to-rotate-various-user-agents-using-selenium-python-on-each-request?answertab=votes#tab-top
 driver.execute_cdp_cmd(f'Network.setUserAgentOverride', {"userAgent": f'{user_agent_rotator.get_random_user_agent()}'})
 print(driver.execute_script("return navigator.userAgent;")) # This would change the user string of the driver
 
 
-driver = webdriver.Chrome(chrome_options=options, executable_path=r'chromedriver.exe')
-
-
-
 
 try:
-    pass
+    driver.get('https://github.com/'+repo+'/archive/master.zip')
+    time_to_wait = 10
+    time_counter = 0
+    while not os.path.exists(path_zip+repo.split('/')[1]+"-master.zip"):
+        time.sleep(1)
+        time_counter += 1
+        if time_counter > time_to_wait:break
+    # Extract the zip folder 
+    # Create a ZipFile Object and load sample.zip in it
+    with ZipFile(path_zip+repo.split('/')[1]+"-master.zip", 'r') as zipObj:
+        # Extract all the contents of zip file in current directory
+        zipObj.extractall()
+    print(f"done file : {path_zip+repo.split('/')[1]+"-master"}")
+    driver.close()
 except Exception as e:
-    # driver.close()
+    driver.close()
     print(traceback.print_exc())
     print("Exception 2")
