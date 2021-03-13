@@ -135,8 +135,7 @@ try:
                     # https://stackoverflow.com/questions/53161173/how-to-rotate-various-user-agents-using-selenium-python-on-each-request?answertab=votes#tab-top
                     
                     driver.execute_cdp_cmd(f'Network.setUserAgentOverride', {"userAgent": f'{user_agent_rotator.get_random_user_agent()}'})
-                    print(driver.execute_script("return navigator.userAgent;"))
-                    # This would change the user string of the driver
+                    print(driver.execute_script("return navigator.userAgent;")) # This would change the user string of the driver
         except:
             print("Last page")
             flag = 0
