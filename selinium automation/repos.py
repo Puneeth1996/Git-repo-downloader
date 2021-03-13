@@ -22,7 +22,10 @@ import random
 
 options = Options()
 options.add_argument('--log-level=3')
+options.add_argument("start-maximized")
 
+options.add_experimental_option("excludeSwitches", ["enable-automation"])
+options.add_experimental_option('useAutomationExtension', False)
 
 # user_agent_string = "My_User_Agent_String" # please chagne the string to user agent
 # opts.add_argument("user-agent=%s" % ( user_agent_string ) ) # adding the user agent 
