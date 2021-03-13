@@ -66,54 +66,8 @@ driver = webdriver.Chrome(chrome_options=options, executable_path=r'chromedriver
 
 
 
-# user_agent_string = "My_User_Agent_String" # please chagne the string to user agent
-# opts.add_argument("user-agent=%s" % ( user_agent_string ) ) # adding the user agent 
-
-
-
-
-
-
 try:
     pass
-    # make_search(search_string)
-    
-    # # make pagination 
-    # flag = 1
-    # cnt = 1
-    # while flag:
-    #     all_results = []
-    #     page_repos = grab_repos_name()
-    #     # print("The Page Repos = ", page_repos)
-        
-    #     all_results.extend(page_repos)
-    #     # as long as there is a next button present keep going 
-    #     try:
-    #         next_button = driver.find_element_by_xpath('//a[@class="next_page"]')
-            
-    #         if('disabled' not in next_button.get_attribute("class")):
-    #             # print("\t\t\t Moving to next page . . . ")
-    #             time.sleep(random.randint(1, 7))
-    #             driver.execute_script("arguments[0].scrollIntoView(true);", next_button)
-    #             time.sleep(random.randint(1, 3))
-    #             driver.execute_script("arguments[0].click();", next_button)
-    #             time.sleep(random.randint(1, 10))
-    #             if(cnt == random.randint(2, 6)):
-    #                 cnt = 1
-    #                 # https://stackoverflow.com/questions/53161173/how-to-rotate-various-user-agents-using-selenium-python-on-each-request?answertab=votes#tab-top
-                    
-    #                 driver.execute_cdp_cmd(f'Network.setUserAgentOverride', {"userAgent": f'{user_agent_rotator.get_random_user_agent()}'})
-    #                 print(driver.execute_script("return navigator.userAgent;"))
-    #                 # This would change the user string of the driver
-    #     except:
-    #         print("Last page")
-    #         flag = 0
-    #     cnt = cnt + 1
-    #     with open(directory + 'Repos-Links.txt', 'a') as f:
-    #         for item in all_results:
-    #             f.write("%s\n" % item)
-    # # driver.close()
-    # print(f"Please Run The Repo-downloader script for downloading : python rep-down.py {search_string}.")
 except Exception as e:
     # driver.close()
     print(traceback.print_exc())
