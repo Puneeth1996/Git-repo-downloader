@@ -84,17 +84,18 @@ try:
     with open(path) as f:
         info = json.load(f)
     print(json.dumps(info, indent=4, sort_keys=True))
-    with open(data["Repo List"]) as f:
+    with open(info["Repo List"]) as f:
         content = f.readlines()
     # you may also want to remove whitespace characters like `\n` at the end of each line
     content = [x.strip() for x in content] 
     commands = []
     for rep in content:
-        commands.append(['python','file_down.py','"%s"' %rep, '"%s"' %search_string ])
+        commands.append(['python','file_down.py','"%s"' %rep, '"%s"' %info['Search Term'] ])
     exec_commands(commands)
     os.remove(path)
 except:
     print("ERR: Sequential Run.")
+    print(traceback.print_exc())
     pass
 
 
