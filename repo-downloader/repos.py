@@ -19,13 +19,13 @@ import time
 import traceback
 import zipfile
 import random
+import json
 
 
 def make_search(search_string):
     # http://github.com/search?q=big+data&type=
     print(f"GET: http://github.com/search?q={ search_string.replace(' ', '+') }&type=")
     driver.get(f"http://github.com/search?q={ search_string.replace(' ', '+') }&type=")
-    print("The requested search url is loaded.")
 
 def grab_repos_name(driver):
     return [ div.text.replace("\n","") for div in driver.find_elements_by_xpath('//div[@class="f4 text-normal"]') ]
@@ -74,7 +74,20 @@ if(len(args) >= 1):
                 for item in all_results:
                     f.write("%s\n" % item)
         driver.close()
-        # print(f"Please Run The Repo-downloader script for downloading : python rep-down.py {search_string}.")
+        with open(directory + 'Repos-Links.txt') as result:
+            uniqlines = set(result.readlines())
+            with open(directory + 'Repos-Links.txt', 'w') as rmdup:
+                rmdup.writelines(set(uniqlines))
+        print(f"The links are gathered for : {search_string} | URL : http://github.com/search?q={ search_string.replace(' ', '+') }&type=")
+        info = {
+            "Search Term" : str(search_string),
+            "Search URL" : f"http://github.com/search?q={ search_string.replace(' ', '+') }&type=", 
+            "Repo List"  : os.getcwd() + directory[1:] + 'Repos-Links.txt'
+        }
+        path = "result.json"
+        fp = open(path, 'w')
+        fp.write(info)
+        fp.close()
     except Exception as e:
         driver.close()
         print(traceback.print_exc())
@@ -83,5 +96,5 @@ if(len(args) >= 1):
 
 
 else:
-    print("Please Enter the Required Arguments.")
+    print("Please Enter the Required Arguments `Search Term`.")
 
