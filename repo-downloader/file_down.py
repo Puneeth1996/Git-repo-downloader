@@ -26,10 +26,12 @@ from zipfile import ZipFile
 
 args = sys.argv
 # print(args)
-repo = args[1].replace('`','')
-search_string = args[2].replace('`','')
+repo = args[1].replace('`','').replace('"','')
+search_string = args[2].replace('`','').replace('"','')
 print( "Download : {0} | File {1}" .format(search_string, 'https://github.com/'+repo+'/archive/master.zip') )
 directory_zip = '.\\Repos-Files\\{0}\\{1}'.format(search_string, repo.replace('/','.'))
+if not os.path.exists(directory_zip):
+    os.makedirs(directory_zip)
 path_zip = os.getcwd() + directory_zip[1:] + '\\'
 print(f"Path :  {path_zip} ")
 options = webdriver.ChromeOptions()

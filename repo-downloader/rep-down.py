@@ -83,7 +83,7 @@ try:
     path = "result.json"
     with open(path) as f:
         info = json.load(f)
-    print(json.dumps(info, indent=4, sort_keys=True))
+    # print(json.dumps(info, indent=4, sort_keys=True))
     with open(info["Repo List"]) as f:
         content = f.readlines()
     # you may also want to remove whitespace characters like `\n` at the end of each line
