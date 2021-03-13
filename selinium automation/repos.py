@@ -38,8 +38,9 @@ driver.get("https://sslproxies.org/")
 driver.execute_script("return arguments[0].scrollIntoView(true);", WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.XPATH, "//table[@class='table table-striped table-bordered dataTable']//th[contains(., 'IP Address')]"))))
 # driver.execute_script("arguments[0].click();", WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.XPATH, "//table[@class='table table-striped table-bordered dataTable']//th[contains(., 'IP Address')]"))))
 select = Select(driver.find_element_by_xpath('//select[@name="proxylisttable_length"]'))
-select.select_by_visible_text('80')# select by text
+# select.select_by_visible_text('80')# select by text
 # select.select_by_value('1')# select by value 
+select.select_by_visible_text('20')# select by text
 ips = [my_elem.get_attribute("innerHTML") for my_elem in WebDriverWait(driver, 5).until(EC.visibility_of_all_elements_located((By.XPATH, "//table[@class='table table-striped table-bordered dataTable']//tbody//tr[@role='row']/td[position() = 1]")))]
 ports = [my_elem.get_attribute("innerHTML") for my_elem in WebDriverWait(driver, 5).until(EC.visibility_of_all_elements_located((By.XPATH, "//table[@class='table table-striped table-bordered dataTable']//tbody//tr[@role='row']/td[position() = 2]")))]
 driver.quit()
@@ -48,8 +49,7 @@ for i in range(0, len(ips)):
     proxies.append(ips[i]+':'+ports[i])
 print(proxies)
 driver.close()
-
-
+time.sleep(10)
 # ------------------------ sEnd of proxies gathering block ------------------------------
 
 
