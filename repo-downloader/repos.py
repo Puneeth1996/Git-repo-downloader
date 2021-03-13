@@ -84,10 +84,10 @@ if(len(args) >= 1):
             "Search URL" : f"http://github.com/search?q={ search_string.replace(' ', '+') }&type=", 
             "Repo List"  : os.getcwd() + directory[1:] + 'Repos-Links.txt'
         }
+        print(json.dumps(info, indent=4, sort_keys=True))
         path = "result.json"
-        fp = open(path, 'w')
-        fp.write(info)
-        fp.close()
+        with open(path, 'w') as json_file:
+            json.dump(info, json_file)
     except Exception as e:
         driver.close()
         print(traceback.print_exc())
