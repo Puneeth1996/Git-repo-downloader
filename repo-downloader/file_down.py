@@ -63,16 +63,18 @@ print(driver.execute_script("return navigator.userAgent;")) # This would change 
 
 try:
     driver.get('https://github.com/'+repo+'/archive/master.zip')
-    time_to_wait = 10
+    time_to_wait = 1200
     time_counter = 0
     while not os.path.exists(path_zip+repo.split('/')[1]+"-master.zip"):
         time.sleep(1)
         time_counter += 1
         if time_counter > time_to_wait:break
+    time.sleep(5)
     with ZipFile(path_zip+repo.split('/')[1]+"-master.zip", 'r') as zipObj:
         zipObj.extractall(path_zip)
     print(f"done file : {path_zip}")
     driver.close()
+    time.sleep(2)
     os.remove(path_zip+repo.split('/')[1]+"-master.zip") # path_zip+repo.split('/')[1]+"-master.zip" shouold be deleted
 except Exception as e:
     driver.close()

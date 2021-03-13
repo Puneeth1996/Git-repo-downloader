@@ -1,0 +1,10 @@
+MohamedAfham/Omniglot-Dataset-Classification-using-Memory-Augmented-Neural-Networks
+UP-RS-ESP/mkt
+theandym/mannequin
+ryanmark1867/manning
+MannheimSearchJoinsEngine/MannheimSearchJoinsEngine
+jerinphilip/mann-ki-baat
+cgallen/MannGallen_2017_CurrentBiology
+manaruchi/MannKendall_Sen_Rainfall
+jyates/manning-energy-resources
+guzmanlopez/SST-MannKendallTrendAnalysis
